@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Alex Salman 2/5/2021 aalsalma@ucsc.edu
+# Alex Salman 1/16/2021 aalsalma@ucsc.edu
 # resource:
 # (1) https://ruslanspivak.com/lsbasi-part7/
 # (2) https://ruslanspivak.com/lsbasi-part8/
@@ -12,9 +12,11 @@ from interpreter import *
 
 def main():
     contents = []
+
     line = input()
     line = line.strip()
     line = " ".join(line.split())
+
     contents.append(line)
 
     text = ' '.join(contents)
