@@ -24,9 +24,9 @@ def main():
     parser = Parser(lexer)
     interpreter = Interpreter(parser)
     interpreter.visit()
-    steps = interpreter.print_step
+    steps = interpreter.print_ss
     steps = [item for sublist in steps for item in sublist]
-    states = interpreter.print_state
+    states = interpreter.immediate_state
     if user_input[0:5] == 'skip;' or user_input[0:6] == 'skip ;':
         del steps[0]
         del states[0]
