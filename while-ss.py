@@ -5,7 +5,9 @@
 # (2) https://ruslanspivak.com/lsbasi-part8/
 # (3) https://ruslanspivak.com/lsbasi-part9/
 # (4) https://github.com/versey-sherry/while/blob/master/parsewhile.py
-
+# (5) Assignment 2
+########################################################################################################################
+from lexer import *
 from parser import *
 from interpreter import *
 
@@ -14,40 +16,34 @@ def main():
     contents = []
     line = input()
     line = line.strip()
-    line = " ".join(line.split())
+    line = ' '.join(line.split())
     contents.append(line)
-
-    text = ' '.join(contents)
-    text = ' '.join(text.split())
-    lexer = Lexer(text)
+    user_input = ' '.join(contents)
+    user_input = ' '.join(user_input.split())
+    lexer = Tokenizer(user_input)
     parser = Parser(lexer)
     interpreter = Interpreter(parser)
     interpreter.visit()
-    step_list = interpreter.print_step
-    step_list = [item for sublist in step_list for item in sublist]
-    state_list = interpreter.print_state
-    if text[0:5] == "skip;" or text[0:6] == "skip ;":
-        del step_list[0]
-        del state_list[0]
-
-    step_list[-1] = 'skip'
-
-    if len(state_list) > 10000:
-        state_list = state_list[0:10000]
-        step_list = step_list[0:10000]
-
-    if len(state_list) ==1 and state_list[0] == {} and text[0:4] == "skip":
+    steps = interpreter.print_step
+    steps = [item for sublist in steps for item in sublist]
+    states = interpreter.print_state
+    if user_input[0:5] == 'skip;' or user_input[0:6] == 'skip ;':
+        del steps[0]
+        del states[0]
+    steps[-1] = 'skip'
+    if len(states) > 10000:
+        states = states[0:10000]
+        steps = steps[0:10000]
+    if len(states) == 1 and states[0] == {} and user_input[0:4] == 'skip':
         print('')
     else:
-        for i in range(len(state_list)):
+        for i in range(len(states)):
             output_string = []
-            for key in sorted(state_list[i]):
-                separator = " "
-                output_string.append(separator.join([key, "→", str(state_list[i][key])]))
-
-            state_string = ''.join(["{", ", ".join(output_string), "}"])
-            step_string = ' '.join(['⇒', step_list[i]])
-            print(step_string, state_string, sep = ', ')
+            for key in sorted(states[i]):
+                output_string.append(' '.join([key, '→', str(states[i][key])]))
+            state_string = ''.join(['{', ', '.join(output_string), '}'])
+            step_string = ' '.join(['⇒', steps[i]])
+            print(step_string, state_string, sep=', ')
 
 
 if __name__ == '__main__':
