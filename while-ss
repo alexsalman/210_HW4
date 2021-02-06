@@ -7,9 +7,14 @@
 # (4) https://github.com/versey-sherry/while/blob/master/parsewhile.py
 # (5) Assignment 2
 ########################################################################################################################
-from lexer import *
 from parser import *
 from interpreter import *
+# x := 3 ; if ( x < 5 ) then x := x + 1 else x := x - 1
+# will result into:
+# ⇒ skip; if (x<5) then { x := (x+1) } else { x := (x-1) }, {x → 3}
+# ⇒ if (x<5) then { x := (x+1) } else { x := (x-1) }, {x → 3}
+# ⇒ x := (x+1), {x → 3}
+# ⇒ skip, {x → 4}
 
 
 def main():

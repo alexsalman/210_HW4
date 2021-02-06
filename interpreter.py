@@ -30,9 +30,6 @@ class SubString:
     def __init__(self, string):
         self.string = string
 
-    def __add__(self, other):
-        return self.string + other.string
-
     def __sub__(self, other):
         return self.string.replace(other.string, '', 1)
 
@@ -108,8 +105,8 @@ def eval(ast, state, variables, immediate_state, print_ss, first_step):
         node.while_false
         break_while = 0
         while eval(condition, state, variables, immediate_state, print_ss, first_step):
-            break_while = break_while + 1
-            if break_while > 60000 - 1:
+            break_while += 1
+            if break_while >= 10000:
                 break
             temp_variable = set(variables)
             temp_state = copy.deepcopy(state)
